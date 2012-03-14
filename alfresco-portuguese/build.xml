@@ -1,0 +1,217 @@
+<project name="Alfresco Portuguese (pt_PT and pt_BR) Language Pack" default="dist-amp-pt_ALL" basedir=".">
+
+	<property file="build.properties" />
+	<property file="${user.home}/build.properties" />
+
+	<property name="config.dir.explorer.pt_BR" value="pt_BR/explorer/config" />
+	<property name="config.dir.share.pt_BR" value="pt_BR/share/config" />
+	<property name="config.dir.explorer.pt_PT" value="pt_PT/explorer/config" />
+	<property name="config.dir.share.pt_PT" value="pt_PT/share/config" />
+	<property name="build.dir" value="build" />
+	<property name="ascii.dir" value="${build.dir}/ascii" />
+	<property name="classes.dir" value="${build.dir}/classes" />
+	<property name="dist.dir" value="${build.dir}/dist" />
+	<property name="copy.verbose" value="false" />
+		
+	<target name="clean" description="Prepare for build">
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<target name="prepare" description="Prepare for build">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${ascii.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${dist.dir}/pt_BR" />
+		<mkdir dir="${dist.dir}/pt_PT" />
+		<mkdir dir="${dist.dir}/pt_ALL" />
+	</target>
+
+	<target name="build-explorer-pt_BR" description="Build property files ready for deployment">
+
+		<mkdir dir="${classes.dir}/pt_BR/explorer/config/alfresco/messages" />
+		<mkdir dir="${classes.dir}/pt_BR/explorer/config/alfresco/workflow" />
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="${config.dir.explorer.pt_BR}" excludes="**/*.properties" />
+		</copy>
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="." includes="readme.txt" />
+		</copy>
+
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_BR}/alfresco/messages" dest="${ascii.dir}/explorer/config/alfresco/messages" includes="**/*.properties" ext=".properties" />
+
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_BR}/alfresco/workflow" dest="${ascii.dir}/explorer/config/alfresco/workflow" includes="**/*.properties" ext=".properties" />
+		
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_BR}/alfresco" dest="${ascii.dir}/explorer/config/alfresco" includes="**/*.xml" ext=".xml" />
+		
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_BR}" dest="${ascii.dir}/explorer" includes="module.properties" />
+		
+		<copy todir="${classes.dir}/pt_BR/explorer/" verbose="${copy.verbose}">
+			<fileset dir="${ascii.dir}/explorer" includes="**/*.*" />
+		</copy>
+
+	</target>
+
+	<target name="build-explorer-pt_PT" description="Build property files ready for deployment">
+
+		<mkdir dir="${classes.dir}/pt_PT/explorer/config/alfresco/messages" />
+		<mkdir dir="${classes.dir}/pt_PT/explorer/config/alfresco/workflow" />
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="${config.dir.explorer.pt_PT}" excludes="**/*.properties" />
+		</copy>
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="." includes="readme.txt" />
+		</copy>
+
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_PT}/alfresco/messages" dest="${ascii.dir}/explorer/config/alfresco/messages" includes="**/*.properties" ext=".properties" />
+
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_PT}/alfresco/workflow" dest="${ascii.dir}/explorer/config/alfresco/workflow" includes="**/*.properties" ext=".properties" />
+		
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_PT}/alfresco" dest="${ascii.dir}/explorer/config/alfresco" includes="**/*.xml" ext=".xml" />
+		
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_PT}" dest="${ascii.dir}/explorer" includes="module.properties" />
+
+		<copy todir="${classes.dir}/pt_PT/explorer/" verbose="${copy.verbose}">
+			<fileset dir="${ascii.dir}/explorer" includes="**/*.*" />
+		</copy>
+
+	</target>
+
+	<target name="build-explorer-pt_ALL" description="Build property files ready for deployment">
+
+		<mkdir dir="${classes.dir}/explorer/config/alfresco/messages" />
+		<mkdir dir="${classes.dir}/explorer/config/alfresco/workflow" />
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="${config.dir.explorer.pt_BR}" excludes="**/*.properties" />
+		</copy>
+		
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="${config.dir.explorer.pt_PT}" excludes="**/*.properties" />
+		</copy>		
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="." includes="readme.txt" />
+		</copy>
+
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_PT}/alfresco/messages" dest="${ascii.dir}/explorer/config/alfresco/messages" includes="**/*.properties" ext=".properties" />
+
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_PT}/alfresco/workflow" dest="${ascii.dir}/explorer/config/alfresco/workflow" includes="**/*.properties" ext=".properties" />
+		
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_BR}/alfresco/messages" dest="${ascii.dir}/explorer/config/alfresco/messages" includes="**/*.properties" ext=".properties" />
+
+		<native2ascii encoding="UTF-8" src="${config.dir.explorer.pt_BR}/alfresco/workflow" dest="${ascii.dir}/explorer/config/alfresco/workflow" includes="**/*.properties" ext=".properties" />
+		
+		<native2ascii encoding="UTF-8" src="." dest="${ascii.dir}/explorer/config/alfresco" includes="web-client-config.xml" />
+		
+		<native2ascii encoding="UTF-8" src="." dest="${ascii.dir}/explorer" includes="module.properties" />
+
+		<copy todir="${classes.dir}/explorer/" verbose="${copy.verbose}">
+			<fileset dir="${ascii.dir}/explorer" includes="**/*.*" />
+		</copy>
+
+	</target>	
+	
+	<target name="build-share-pt_BR" description="Build property files ready for deployment">
+
+		<mkdir dir="${classes.dir}/pt_BR/share/config/alfresco/messages" />
+		<mkdir dir="${classes.dir}/pt_BR/share/config/alfresco/web-extension/site-webscripts" />
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="${config.dir.share.pt_BR}" excludes="**/*.properties" />
+		</copy>
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="." includes="readme.txt" />
+		</copy>
+
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_BR}/alfresco/messages" dest="${ascii.dir}/share/config/alfresco/messages" includes="**/*.properties" ext=".properties" />
+
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_BR}/alfresco/site-webscripts" dest="${ascii.dir}/share/config/alfresco/web-extension/site-webscripts" includes="**/*.properties" ext=".properties" />
+		
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_BR}" dest="${ascii.dir}/share" includes="module.properties" />
+
+		<copy todir="${classes.dir}/pt_BR/share/" verbose="${copy.verbose}">
+			<fileset dir="${ascii.dir}/share" includes="**/*.*" />
+		</copy>
+
+	</target>
+
+	<target name="build-share-pt_PT" description="Build property files ready for deployment">
+
+		<mkdir dir="${classes.dir}/pt_PT/share/config/alfresco/messages" />
+		<mkdir dir="${classes.dir}/pt_PT/share/config/alfresco/web-extension/site-webscripts" />
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="${config.dir.share.pt_PT}" excludes="**/*.properties" />
+		</copy>
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="." includes="readme.txt" />
+		</copy>
+
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_PT}/alfresco/messages" dest="${ascii.dir}/share/config/alfresco/messages" includes="**/*.properties" ext=".properties" />
+
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_PT}/alfresco/site-webscripts" dest="${ascii.dir}/share/config/alfresco/web-extension/site-webscripts" includes="**/*.properties" ext=".properties" />
+		
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_PT}" dest="${ascii.dir}/share" includes="module.properties" />
+
+		<copy todir="${classes.dir}/pt_PT/share/" verbose="${copy.verbose}">
+			<fileset dir="${ascii.dir}/share" includes="**/*.*" />
+		</copy>
+
+	</target>
+	
+	<target name="build-share-pt_ALL" description="Build property files ready for deployment">
+
+		<mkdir dir="${classes.dir}/share/config/alfresco/messages" />
+		<mkdir dir="${classes.dir}/share/config/alfresco/web-extension/site-webscripts" />
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="${config.dir.share.pt_PT}" excludes="**/*.properties" />
+		</copy>
+		
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="${config.dir.share.pt_BR}" excludes="**/*.properties" />
+		</copy>		
+
+		<copy todir="${ascii.dir}" verbose="${copy.verbose}" includeEmptyDirs="false">
+			<fileset dir="." includes="readme.txt" />
+		</copy>
+
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_BR}/alfresco/messages" dest="${ascii.dir}/share/config/alfresco/messages" includes="**/*.properties" ext=".properties" />
+
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_BR}/alfresco/site-webscripts" dest="${ascii.dir}/share/config/alfresco/web-extension/site-webscripts" includes="**/*.properties" ext=".properties" />
+
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_PT}/alfresco/messages" dest="${ascii.dir}/share/config/alfresco/messages" includes="**/*.properties" ext=".properties" />
+
+		<native2ascii encoding="UTF-8" src="${config.dir.share.pt_PT}/alfresco/site-webscripts" dest="${ascii.dir}/share/config/alfresco/web-extension/site-webscripts" includes="**/*.properties" ext=".properties" />
+		
+		<native2ascii encoding="UTF-8" src="." dest="${ascii.dir}/share" includes="module.properties" />
+
+		<copy todir="${classes.dir}/share/" verbose="${copy.verbose}">
+			<fileset dir="${ascii.dir}/share" includes="**/*.*" />
+		</copy>
+
+	</target>	
+	
+	<target name="dist-amp-pt_BR" description="Create AMP file of the language pack pt_BR" depends="clean,prepare,build-explorer-pt_BR,build-share-pt_BR">
+		<zip destfile="${dist.dir}/pt_BR/alfresco-explorer-langpack-pt_BR.amp" basedir="${classes.dir}/pt_BR/explorer" />
+		<zip destfile="${dist.dir}/pt_BR/alfresco-share-langpack-pt_BR.amp" basedir="${classes.dir}/pt_BR/share" />
+	</target>
+
+	<target name="dist-amp-pt_PT" description="Create AMP file of the language pack pt_PT" depends="clean,prepare,build-explorer-pt_PT,build-share-pt_PT">
+		<zip destfile="${dist.dir}/pt_PT/alfresco-explorer-langpack-pt_PT.amp" basedir="${classes.dir}/pt_PT/explorer" />
+		<zip destfile="${dist.dir}/pt_PT/alfresco-share-langpack-pt_PT.amp" basedir="${classes.dir}/pt_PT/share" />
+	</target>	
+	
+	<target name="dist-amp-pt_ALL" description="Create AMP file of the language pack for Both languages (pt_PT and pt_BR)" depends="clean,prepare,build-explorer-pt_ALL,build-share-pt_ALL">
+		<zip destfile="${dist.dir}/pt_ALL/alfresco-explorer-langpack-pt_ALL.amp" basedir="${classes.dir}/explorer" />
+		<zip destfile="${dist.dir}/pt_ALL/alfresco-share-langpack-pt_ALL.amp" basedir="${classes.dir}/share" />
+	</target>
+
+</project>
